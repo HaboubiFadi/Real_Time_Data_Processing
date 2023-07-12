@@ -1,0 +1,18 @@
+
+Service description:
+
+This microservice is responsible for fetching data from the choosen API 
+or any other data source and publishing it to a message queue or topic in Kafka. 
+It handles the data retrieval, 
+formatting, and publishing tasks.
+
+We are going to start fetch with yahoo finance API
+
+    1) Fetch data from the choosen Api (start with yahoo finance API)
+    2) create and configure producer of each topic 
+    3) create and publish data fetched into a topic 
+
+required archtecture for new Api 
+    1) Initiate Data from (start_date=2023-01-01 ) 
+    2) Initiate and Configure two topics  per Api (topic_initiate & topic_real_time_data)
+    3) Configure two ( Producer_database & Producer_realtime )
