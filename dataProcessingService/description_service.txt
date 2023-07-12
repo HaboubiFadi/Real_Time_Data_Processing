@@ -1,0 +1,4 @@
+Description:
+This microservice consumes the streaming data from Kafka and performs real-time processing tasks
+such as computing technical indicators (moving average, stochastic, RSI), 
+detecting anomalies, or generating alerts..
