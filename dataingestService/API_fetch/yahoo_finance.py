@@ -2,14 +2,15 @@ import yfinance as yf
 
 import pandas as pd
 from datetime import datetime,timedelta
+import sys
+sys.path.append('/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/dataingestService/API_fetch/')
 from requirments import init_data
-import pytz
 
 def fetch_data_per_ticket(start_date,ticket='AUDJPY=X'):
     data = yf.download(tickers = ticket ,  start=start_date,interval ='1m')
     return data
 
-def fetch_init_database_per_ticket(ticket,start_date=init_data):
+def fetch_init_data_per_ticket(ticket,start_date=init_data):
     date=init_data
     data1=pd.DataFrame()
     while date<datetime.now():
@@ -27,6 +28,7 @@ def fetch_init_database_per_ticket(ticket,start_date=init_data):
 
 
 def fetch_reel_time(ticket):
-    data = yf.download(tickers = ticket , start=datetime.now()-timedelta(minutes=1),interval ='1m')
-
+    data = yf.download(tickers = ticket , start=datetime.now()-timedelta(minutes=3),interval ='1m')
+    data = data.reset_index(drop=False)
+    data=data.drop_duplicates(subset=['Datetime'])
     return data

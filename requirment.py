@@ -1,1 +1,1 @@
-resource_path='/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/resources'
+resource_path='/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/resources/'
