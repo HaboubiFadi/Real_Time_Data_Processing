@@ -8,4 +8,4 @@ data =fetch_data_per_ticket(start_date=now)
 print(data)
 """
 data=fetch_init_data_per_ticket('AUDJPY=X')
-print(data)
+print(data.columns)
