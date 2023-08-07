@@ -19,8 +19,7 @@ if __name__ =='__main__':
     ticket='EURUSD=X'
     fetched_data_init=fetch_init_data_per_ticket(ticket)
     last_datetime=fetched_data_init.iloc[-1]['Datetime']
-    print(fetched_data_init)
-    print("column:",fetched_data_init.columns())
+    #print("column:",fetched_data_init.columns())
     produce_init_data(p_init,fetched_data_init,ticket)
     
     print('flag0')

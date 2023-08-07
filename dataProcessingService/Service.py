@@ -126,7 +126,6 @@ def Write_reel_data_text(key,value,DataFrame):
     """text_file.write(liste_to_str(value.columns.to_list()))
     text_file.write('\n')"""
 
-    print('fadi')
     print(DataFrame.iloc[-1])
     line=liste_to_str(DataFrame.iloc[-1].values.tolist())
     text_file.write('\n')
@@ -145,7 +144,6 @@ def Consume_data_Api_finance(consumer,key):
         msg=consumer.poll(1.0)
 
         if msg is None:
-            print('im waiting for init data')
             continue
         if msg.error():
             print(f"There might be a problem {msg.error()}")

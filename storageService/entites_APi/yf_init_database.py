@@ -1,6 +1,8 @@
 from base import  Base ,engine,Session
 from Hist_data import Hist_data
 from tickets import Ticket
+from news import News
+
 import sys
 from datetime import datetime
 sys.path.append('/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance')
@@ -34,13 +36,18 @@ def get_ticket(key):
     tick=session.query(Ticket).filter(Ticket.ticket_name==key).first()
     session.close()
     return tick
+def get_all_ticket():
+    session=Session()    
+    tickets=session.query(Ticket).all()
+    session.close()
+    return tickets
 
 
 
 
 
-def updated_object_from_txt(key):
-    ticket=get_ticket(key)
+def updated_object_from_txt(ticket):
+    key=ticket.getname()
     updated_time=ticket.get_dattime()
     
     resource_text=resource_path+str(key)+'.txt'
@@ -65,6 +72,23 @@ def updated_object_from_txt(key):
         ticket.set_dateyime(last_date)
         return ticket
     return ticket
+
+def update_all_in_database():
+    tickets=get_all_ticket()
+    for i in range(len(tickets)):
+        tickets[i]=updated_object_from_txt(tickets[i])
+
+    return tickets
+
+
+
+
+
+
+
+
+
+
 
 if __name__=='__main__':
     init_database_postgres()

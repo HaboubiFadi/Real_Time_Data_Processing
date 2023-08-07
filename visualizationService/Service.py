@@ -17,11 +17,11 @@ def animate(i,key,ax1):
     ys= []
     l=0
     for line in lines :
-        if len(line) > 1:
+        if len(line) > 0:
             l=l+1
-            if l>200:
+            if l>3600:
                 table =line.split(',')
-                xs.append(table[0][5:17])
+                xs.append(l)
                 ys.append(float(table[4]))
                 mav.append(float(table[8]))
     ax1.clear()

@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 
 
 def initiate_database_yf():
-    init_database='/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/storageService/entites_APi_yf/init_database.py'
+    init_database='/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/storageService/entites_APi/yf_init_database.py'
     database_script = ['python3', init_database]
 
     database_results = subprocess.run(database_script, capture_output=True, text=True)
@@ -31,7 +31,10 @@ def insert_data(Data,database='finance_api'):
 
     Session = sessionmaker(bind=engine) # Session for database manipulation
     session=Session()
-    session.add(Data)
+    if isinstance(Data,list):
+        session.add_all(Data)
+    else:
+        session.add(Data)  
     session.commit()
     session.close()
 
@@ -46,7 +49,10 @@ def update_data(updated_data,database='finance_api'):
     Session = sessionmaker(bind=engine) # Session for database manipulation
     
     session=Session()
-    session.add(updated_data)
+    if isinstance(updated_data,list):
+        session.add_all(updated_data)
+    else:
+        session.add(updated_data)    
     session.commit()
     session.close()
 

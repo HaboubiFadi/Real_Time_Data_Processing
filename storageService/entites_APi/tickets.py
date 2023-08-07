@@ -13,6 +13,7 @@ class Ticket(Base):
 
     last_time_updated=Column(DateTime)
     hist_data=relationship('Hist_data',uselist=True,cascade='all, delete-orphan',lazy='dynamic')
+    news=relationship('News',uselist=True,cascade='all, delete-orphan',lazy='dynamic')
 
     def __init__(self,dic):
         self.ticket_name=dic['ticket_name']
@@ -36,3 +37,16 @@ class Ticket(Base):
         return self.last_time_updated
     def set_dateyime(self,last_date):
         self.last_time_updated=last_date
+    def getname(self):
+        return self.ticket_name 
+
+
+    def set_news(self,news_items):
+        self.news=news_items
+    
+    def update_news(self,news_items):
+        if isinstance(news_items,list):
+            for i in news_items:
+                self.news.append(i)     
+        else:
+            self.hist_data.append(news_items)  
