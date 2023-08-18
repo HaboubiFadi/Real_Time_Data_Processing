@@ -28,21 +28,24 @@ def NER(text):
         if j==False:
             ner.append(i)
     return ' '.join(ner)
-def sentiment_numtotext():
-    pass
 
-def news_sentiment_analysis(data):
+def sentiment_numtotext(predicition):
+    dic={0:'neutral',1:'bullish',2:'bearish'}
+    return dic[predicition]
+
+def news_sentiment_analysis(data_new):
 
     with open('model_sentiment_analysis/model.pk','rb') as f: # open ML model using pickle
         model=pickle.load(f)
     with open('model_sentiment_analysis/CounterVectorizer.pk','rb') as f: # open ML model using pickle
         CounterVectorizer=pickle.load(f)    
     # Vectorize  data using CounterVectorizer 
-    data_new=pd.DataFrame(data,columns=['contenu'])
-    data_new=data_new['Ner'].apply(lambda txt:NER(txt))
-
+    data_new['Ner']=data_new['description'].apply(lambda txt:NER(txt))
+    
     # apply the vectorizer to the corpus
-    X = CounterVectorizer.transform(data.Ner)
+    X = CounterVectorizer.transform(data_new.Ner)
 
     y_pred=model.predict(X)
-    return y_pred
+    data_new['sentiment']=y_pred
+    data_new['sentiment']=data_new['sentiment'].apply(lambda txt:sentiment_numtotext(txt))
+    return data_new

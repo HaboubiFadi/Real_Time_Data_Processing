@@ -8,7 +8,7 @@ import numpy as np
 
 topic_init = 'init-database'
 topic_real_time='real-time'
-dic={'bootstrap.servers': 'localhost:9092'}
+dic={'bootstrap.servers': 'broker:9092'}
 def Serialization(DataFrame):
     return DataFrame.to_json()
 

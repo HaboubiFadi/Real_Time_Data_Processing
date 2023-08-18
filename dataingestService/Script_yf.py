@@ -1,7 +1,7 @@
 # Data ingesting (API yf) 
 # using script to initiate The Producer
 from API_fetch.yahoo_finance import fetch_init_data_per_ticket,fetch_reel_time
-from Service import initiat_producer,produce_init_data,produce_realtime_data
+from Service import initiat_producers,produce_init_data,produce_realtime_data
 from datetime import datetime,timedelta
 import time
 # 0) initiat_producers
@@ -15,7 +15,7 @@ import time
 
 if __name__ =='__main__':
     minutes=0
-    p_init,p_reel=initiat_producer()
+    p_init,p_reel=initiat_producers()
     ticket='EURUSD=X'
     fetched_data_init=fetch_init_data_per_ticket(ticket)
     last_datetime=fetched_data_init.iloc[-1]['Datetime']

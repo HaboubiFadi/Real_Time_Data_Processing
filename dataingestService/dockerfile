@@ -1,0 +1,10 @@
+From python:3.8-slim
+
+WORKDIR /app
+
+COPY requirement_lib.txt /app/
+RUN pip install --no-cache-dir -r requirement_lib.txt
+
+COPY . /app/
+
+CMD ["python","init_script.py"]

@@ -6,6 +6,7 @@ from base import Base
 
 class News(Base):
     __tablename__='news'
+
     
     id=Column(Integer,primary_key=True)
     source=Column(String)
@@ -14,7 +15,9 @@ class News(Base):
     description=Column(String)
     publishedAt=Column(DateTime)
     content=Column(String)
-    ticket_id=Column(Integer,ForeignKey('tickets.id'))
+    sentiment=Column(String)
+
+    ticket_id=Column(Integer,ForeignKey('news_tickets.id'))
    
       
 
@@ -28,6 +31,8 @@ class News(Base):
             self.description=serie['description']
             self.publishedAt=serie['publishedAt']
             self.content=serie['content']
+            self.sentiment=serie['sentiment']
+
         else:
             print('None')
             pass

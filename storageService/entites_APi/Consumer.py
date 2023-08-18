@@ -1,12 +1,20 @@
 from confluent_kafka import Consumer
 import pandas as pd
+import os
+path=os.getcwd()
+import sys
+sys.path.append(os.path.join(path,'entites_APi'))
 from news import News
 from Hist_data import Hist_data
 from tickets import Ticket
 from datetime import datetime
+from entites_APi.new_tickets import News_tickets
+
 import sys
 from base import Session
-sys.path.append('/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/storageService/database')
+
+
+sys.path.append(os.path.join(path,'database'))
 from postgres import insert_data
 
 
@@ -34,7 +42,6 @@ def get_ticket(key):
 
 topic_init = 'init-database'
 topic_real_time='real-time'
-dic={'bootstrap.servers': 'localhost:9092','group.id':'trial'}
 
 
 def Deserialization(s):
@@ -44,19 +51,32 @@ def Deserialization(s):
     return df
 
 
-def Initiat_Consumer(configuration_server=dic):
-    consumer_init = Consumer(dic)
+def Initiat_Consumer(configuration_server):
+    consumer_init = Consumer(configuration_server)
     consumer_init.subscribe([topic_init])
     print('Consumer is successfully initiated')
     return consumer_init
 
-def data_frame_toc_class_objects(object,dataFrame):
+def Consumer_init(configuration_server):
+    consumer_init = Consumer(configuration_server)
+    print('Consumer is successfully initiated')
+    return consumer_init
+
+
+
+
+
+def data_frame_to_class_objects(object,dataFrame):
     if isinstance(object,News):
         liste=[]
+        print('news object')
         for i in range(len(dataFrame)):
             liste.append(News(dataFrame.iloc[i]))
         return liste
     if isinstance(object,Hist_data):
+        liste=[]
+        print('hist object')
+
         for i in range(len(dataFrame)):
             liste.append(Hist_data(dataFrame.iloc[i]))
         return liste
@@ -83,7 +103,7 @@ def Consume_data_into_database(consumer):
                 print(dataframe)
 
                 empty_object=News(None)
-                liste_news=data_frame_toc_class_objects(empty_object,dataframe)
+                liste_news=data_frame_to_class_objects(empty_object,dataframe)
                 
                 
                 ticket=get_ticket(msg.key().decode('utf-8'))
@@ -100,6 +120,47 @@ def Consume_data_into_database(consumer):
 
                 insert_data(ticket)
 
+topic_price_consume= 'process_price'
+topic_news_consume='process_news'   
+
+
+def Consume_data(dic):
+    consumer=Consumer_init(dic)
+    consumer.subscribe([topic_price_consume,topic_news_consume])
+    while True:
+        message=consumer.poll(1.0)
+        if message is None:
+            print('im waiting for reel time feed')
+            continue
+        if message.error():
+            print(f"There might be a problem {message.error()}")
+
+        else:
+            print('data delivered successfully')
+            topic = message.topic()
+            if topic=='process_price':
+                key = message.key()
+                value = message.value()
+                value=Deserialization(value)
+                empty_object=Hist_data(None)
+                liste_price=data_frame_to_class_objects(empty_object,value)
+                tick_info= {'ticket_name':key.decode('utf-8'),'last_time_updated':datetime.now()}
+
+                ticket=Ticket(tick_info)
+                ticket.set_Hist_data(liste_price)
+                insert_data(ticket)
+
+            if topic=='process_news':
+                key = message.key()
+                value = message.value()
+                value=Deserialization(value)
+                empty_object=News(None)
+                liste_news=data_frame_to_class_objects(empty_object,value)
+                tick_info= {'ticket_name':key.decode('utf-8'),'last_time_updated':datetime.now()}
+
+                ticket_news=News_tickets(tick_info)
+                ticket_news.set_news(liste_news)
+                insert_data(ticket_news)          
         
 
 

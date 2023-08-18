@@ -1,18 +1,17 @@
-from confluent_kafka import Consumer
+from confluent_kafka import Consumer,Producer
 import pandas as pd
 from datetime import datetime,timedelta
 import time
 import numpy as np
 import sys
-sys.path.append('/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance')
-from requirment import resource_path
 import json
-
+import os
+resource_path=os.path.join(os.getcwd(),'resources')
 
 topic_init = 'init-database'
 topic_real_time='real-time'
-dic={'bootstrap.servers': 'localhost:9092','group.id':'EUR/USD_init'}
-dic_reel={'bootstrap.servers': 'localhost:9092','group.id':'EUR/USD_reel'}
+dic={'bootstrap.servers': 'broker:9092'}
+dic_reel={'bootstrap.servers': 'broker:9092'}
 
 def liste_to_str(list,split=','):
     s=''
@@ -35,7 +34,6 @@ import json
 def Deserialization(s):
 
     json_string = s.decode('utf-8')
-    print(json_string)
     df = pd.read_json(json_string)
     
         
@@ -43,14 +41,19 @@ def Deserialization(s):
 
 
 def Initiat_Consumer(configuration_server=dic):
-    consumer_init = Consumer(dic)
+    consumer_init = Consumer(configuration_server)
+
+    
+    return consumer_init
+
+def Initiat_Consumers(configuration_server=dic):
+    consumer_init = Consumer(configuration_server)
     consumer_init.subscribe([topic_init],on_assign=assignment_callback)
-    consumer_reel_time=Consumer(dic_reel)
+    consumer_reel_time=Consumer(configuration_server)
     consumer_reel_time.subscribe([topic_real_time],on_assign=assignment_callback)
 
     
     return consumer_init,consumer_reel_time
-
 
 def Simple_Moving_average(DataFrame,periode=14):
     DataFrame['SMA']=DataFrame['Close'].rolling(window=periode).mean()
@@ -83,6 +86,8 @@ def Processing_data(DataFrame):
     DataFrame=Simple_Moving_average(DataFrame)
     DataFrame=Cumulative_Moving_Average(DataFrame)
     DataFrame=RSI(DataFrame)     
+    DataFrame = DataFrame.fillna(0)
+
     return DataFrame
 
 
@@ -99,7 +104,6 @@ def processing_reel_time_data(DataFrame,real_time):
 
 
 def Write_in_text(key,value):
-    print(key)
     value=Deserialization(value)
     value=Processing_data(value)
     ful_path=resource_path+str(key.decode('utf-8'))+'.txt'
@@ -126,7 +130,6 @@ def Write_reel_data_text(key,value,DataFrame):
     """text_file.write(liste_to_str(value.columns.to_list()))
     text_file.write('\n')"""
 
-    print(DataFrame.iloc[-1])
     line=liste_to_str(DataFrame.iloc[-1].values.tolist())
     text_file.write('\n')
     text_file.write(line)
@@ -137,36 +140,51 @@ def Write_reel_data_text(key,value,DataFrame):
 
 
 
-
+# consume data from kafka server and write it in a .txt
 def Consume_data_Api_finance(consumer,key):
     
     while True:
+    
         msg=consumer.poll(1.0)
 
         if msg is None:
-            continue
+            print('no data yet')
         if msg.error():
             print(f"There might be a problem {msg.error()}")
-        
+            
 
         print(msg.value())
         DataFrame=Write_in_text(msg.key(),msg.value())
         print(DataFrame)
         break
+        
     return DataFrame   
+# consume real time data from kafka server and write it in a .txt
+# those function are only for practice and test only
 
 def Consume_reel_data_Api_finance(consumer,key,DataFrame):
     
     while True:
-        msg=consumer.poll(1.0)
+        try:
+            msg=consumer.poll(1.0)
 
-        if msg is None:
-            print('im waiting for reel time feed')
-            continue
-        if msg.error():
-            print(f"There might be a problem {msg.error()}")
+            if msg is None:
+                print('im waiting for reel time feed')
+                continue
+            if msg.error():
+                print(f"There might be a problem {msg.error()}")
         
+        
+            print(DataFrame)
+            DataFrame=Write_reel_data_text(msg.key(),msg.value(),DataFrame)
+        except:
+            pass
 
-        print(DataFrame)
-        DataFrame=Write_reel_data_text(msg.key(),msg.value(),DataFrame)
+
+def Serialization(DataFrame):
+    return DataFrame.to_json()
+
+def initiat_producer(configuration_server):
+    producer_init = Producer(configuration_server)
     
+    return producer_init        

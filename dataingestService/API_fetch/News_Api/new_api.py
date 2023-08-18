@@ -31,7 +31,6 @@ def get_topheadlines(*args):
     
     # Set the API endpoint URL  
     url = "https://newsapi.org/v2/top-headlines"
-    print(args)
     params=args[0]
     response=requests.get(url,params=params)    
     result=response.json()
@@ -44,7 +43,6 @@ def get_topheadlines(*args):
 def get_everything(*args):
     # Set the API endpoint URL  
     url = "https://newsapi.org/v2/everything"
-    print(args)
     params=args[0]
     response=requests.get(url,params=params)    
     result=response.json()
@@ -76,16 +74,37 @@ def clean_columns(json):
     articles=json['articles']
     Dataframe=pd.DataFrame(columns=filter)
     for article in articles:
-        print(article)
         new_dic=get_required_features(article,filter)
         new_dic=filter_source(new_dic)
         Dataframe.loc[len(Dataframe)]=value_dictionnaire(new_dic,filter)
     
     return Dataframe
+def request_number_page(headers):
+    pages=get_everything(headers)
+    return pages
+
+
 
 
 def initiate_data_news(headers):
+    request=request_number_page(headers)
+    final_data=pd.DataFrame()
+    status='yes'
+    while True:
+        json=get_everything(headers)
+        status=json['status']
+        if status=='error':
+            break
+        data_frame=clean_columns(json)
+
+        final_data = pd.concat([final_data, data_frame], axis=0)
+        page=headers['page']+1
+        headers['page']=page
+    final_data = final_data.reset_index(drop=False)
+    
+    return final_data
+
+def reduced_news(headers):
     json=get_everything(headers)
     data_frame=clean_columns(json)
-
     return data_frame

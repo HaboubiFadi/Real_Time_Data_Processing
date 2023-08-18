@@ -2,16 +2,18 @@
 import subprocess
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-
-
-
+import os 
+import numpy as np
+from psycopg2.extensions import register_adapter, AsIs
+register_adapter(np.int64, AsIs)
 
 
 
 
 def initiate_database_yf():
-    init_database='/home/haboubi/Desktop/projects/pyspark/kafka_Api_finance/storageService/entites_APi/yf_init_database.py'
-    database_script = ['python3', init_database]
+    path=os.getcwd()
+    init_database=os.path.join(path,'entites_APi/Service.py')
+    database_script = ['python', init_database]
 
     database_results = subprocess.run(database_script, capture_output=True, text=True)
     if database_results.returncode == 0:
@@ -23,9 +25,9 @@ def initiate_database_yf():
         error = database_results.stderr
         print("Error:", error) 
 
-def insert_data(Data,database='finance_api'):
+def insert_data(Data,database='postgres'):
 
-    engine_string='postgresql://airflow_user:airflow_pass@localhost/'+database
+    engine_string='postgresql://airflow_user:airflow_pass@postgres:5432/'+database
 
     engine = create_engine(engine_string) # engine for database information
 
@@ -39,9 +41,9 @@ def insert_data(Data,database='finance_api'):
     session.close()
 
 
-def update_data(updated_data,database='finance_api'):
+def update_data(updated_data,database='postgres'):
 
-    engine_string='postgresql://airflow_user:airflow_pass@localhost/'+database
+    engine_string='postgresql://airflow_user:airflow_pass@postgres:5432/'+database
 
     engine = create_engine(engine_string) # engine for database information
 
@@ -57,8 +59,8 @@ def update_data(updated_data,database='finance_api'):
     session.close()
 
 
-def delete_data(data,database='finance_api'):
-    engine_string='postgresql://airflow_user:airflow_pass@localhost/'+database
+def delete_data(data,database='postgres'):
+    engine_string='postgresql://airflow_user:airflow_pass@postgres:5432/'+database
 
     engine = create_engine(engine_string) # engine for database information
 

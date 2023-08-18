@@ -10,7 +10,7 @@ headers = {
     'from':datetime(2023,7,1),
     "apiKey" :'83ec940dd74b4342afd20676e8efdab7',
     'q':'stocks',
-    'page':2
+    'page':1
     
 }
 

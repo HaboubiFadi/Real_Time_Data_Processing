@@ -1,5 +1,0 @@
-Description:
-This microservice provides the user interface and data visualization capabilities.
-It can use visualization tools or Tableau to create interactive dashboards, charts,
-and graphs that display the real-time currency data, 
-technical indicators.

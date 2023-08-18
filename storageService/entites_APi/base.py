@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql://airflow_user:airflow_pass@localhost/finance_api') # engine for database information
+engine = create_engine('postgresql://airflow_user:airflow_pass@postgres:5432/postgres') # engine for database information
 
 Session = sessionmaker(bind=engine) # Session for database manipulation
 

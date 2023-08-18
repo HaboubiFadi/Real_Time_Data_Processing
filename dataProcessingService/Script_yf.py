@@ -16,9 +16,10 @@ import time
 if __name__ =='__main__':
     c_init,c_reel=Initiat_Consumer()
     ticket='EURUSD=X'
+    
     DataFrame=Consume_data_Api_finance(c_init,ticket)
     Consume_reel_data_Api_finance(c_reel,ticket,DataFrame)
-
+   
 
 
 
