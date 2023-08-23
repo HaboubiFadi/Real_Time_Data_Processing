@@ -68,4 +68,3 @@ def delete_data(data,database='postgres'):
     session=Session()
     session.delete(data)
     session.close()
-

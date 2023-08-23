@@ -1,6 +1,6 @@
-from confluent_kafka import Producer
+from confluent_kafka import Producer,Consumer
 import sys
-
+import pandas as pd
 from datetime import datetime,timedelta
 import time
 import numpy as np
@@ -48,5 +48,37 @@ def produce_realtime_data(producer_real_time,data,ticket,topic_real_time='real-t
     producer_real_time.flush()
 
 
+def Deserialization(s):
+
+    json_string = s.decode('utf-8')
+    df = pd.read_json(json_string)
+    
+        
+    return df
 
 
+def Initiat_Consumer(configuration_server=dic):
+    consumer_init = Consumer(configuration_server)
+
+    
+    return consumer_init
+
+
+# decompose dataframe into smaller part to fit it into kafka producer
+def baching_data(dataframe,max_req):    
+    size=dataframe.memory_usage(deep=True).sum() # get dataframe size
+    raw_size=int(size/dataframe.shape[0]) # get approximately of the size of each raw
+    batch_size=int(max_req/raw_size)+1 # calculate how many raws fit in a batch pack 
+    dataframe_liste=[]
+    pack_size=size/max_req # how packs we should iterate with 
+    if size>max_req:
+        j=0
+        for i in range(1,int(size/max_req)+2):
+            if i<int(size/max_req)+1:
+                data=dataframe.loc[j:(i*batch_size)-1]
+                dataframe_liste.append((data,str(i)+',part'))
+            else:
+                data=dataframe.loc[j:]
+                dataframe_liste.append((data,str(i)+',part'+',final'))
+            j=i*batch_size
+    return dataframe_liste

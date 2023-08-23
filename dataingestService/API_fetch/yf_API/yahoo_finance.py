@@ -14,7 +14,7 @@ def fetch_data_per_ticket(start_date,ticket='AUDJPY=X',interval='1m'):
     data = yf.download(tickers = ticket ,  start=start_date,interval =interval)
     return data
 # fetch 1 minute_data interval from defined date 
-# (rq: we used a while loop because the yf_API can fetch data from more than 7day from defined date)
+# (rq: we used a while loop because the yf_API can't fetch data from more than 7day from defined date)
 def fetch_init_data_per_ticket(ticket,start_date,end_date):
     data1=pd.DataFrame()
     date=start_date
@@ -37,3 +37,57 @@ def fetch_reel_time(ticket):
     data = data.reset_index(drop=False)
     data=data.drop_duplicates(subset=['Datetime'])
     return data
+
+
+
+#data['Datetime']=data['Datetime'].apply(lambda date:fix_date(date))
+
+
+
+# function return sec to 0 in datetime
+def fix_date(date) :
+    date=datetime(date.year,date.month,date.day,date.hour,date.minute,0)
+    return date
+
+# group data by date
+def separate_data(data): # create a dictionnary that combine key (date) with (ticket_names)
+    
+    data['Datetime']=data['Datetime'].apply(lambda date:fix_date(date))
+    dic=data.groupby('Datetime').groups
+    
+    
+    string=''
+    dictionnaire={}
+    for key,value in dic.items():
+        string=''
+        print(key)
+        for v in value:
+            string =string+' '+str(data['name'].iloc[v])
+        dictionnaire[key]=string[1:]
+    return dictionnaire
+
+
+
+
+
+
+
+
+
+def multi_fetch(tickets,start_date,end_date=None):
+    data = yf.download(tickets, start=start_date,end=end_date,interval="1m")
+    data = data.reset_index(drop=False)
+    data=data.swaplevel(0,1,axis="columns")
+    return data
+
+
+
+def fetch_realtime_multidata(tickets,timezone):
+    start_date=datetime.now()-timedelta(minutes=3)
+    timezone_date = start_date.astimezone(timezone(timezone))
+
+
+    data = yf.download(tickets, start=timezone_date,interval="1m")
+
+    data=data.swaplevel(0,1,axis="columns")
+    return data.iloc[-1]

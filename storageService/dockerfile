@@ -1,12 +1,10 @@
-FROM python:3.8
+From python:3.8-slim
 
-WORKDIR /add
+WORKDIR /app
 
-COPY . /add
-
+COPY requierment.txt /app/
 RUN pip install --no-cache-dir -r requierment.txt
 
-# EXPOSE the port your service runs on 
-EXPOSE 8000
+COPY . /app/
 
-CMD [ "python", "init_script.py"]
+CMD ["python","init_script.py"]

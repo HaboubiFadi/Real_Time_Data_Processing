@@ -3,10 +3,11 @@ from Hist_data import Hist_data
 from tickets import Ticket
 from news import News
 from new_tickets import News_tickets
-
+from confluent_kafka import Producer
+import pandas as pd
 import os
-import sys
 from datetime import datetime
+import pytz
 resource_path=os.path.join(os.getcwd(),'resources')
 
 
@@ -39,11 +40,25 @@ def get_ticket(key):
     tick=session.query(Ticket).filter(Ticket.ticket_name==key).first()
     session.close()
     return tick
-def get_all_ticket():
+def get_all_ticket_list():
     session=Session()    
     tickets=session.query(Ticket).all()
     session.close()
-    return tickets
+    dataframe=pd.DataFrame([],columns=['id','name','Datetime','timezone'])
+    for ticket in tickets:
+        dataframe.loc[len(dataframe)]=ticket.to_list()
+    return dataframe  
+
+def Serialization(DataFrame):
+    return DataFrame.to_json()
+
+def initiat_producer(configuration_server):
+    producer_init = Producer(configuration_server)
+    
+    return producer_init  
+
+
+
 
 
 
@@ -75,13 +90,22 @@ def updated_object_from_txt(ticket):
         ticket.set_dateyime(last_date)
         return ticket
     return ticket
+# update tickets table using liste of (id,timeupdate)
 
-def update_all_in_database():
-    tickets=get_all_ticket()
-    for i in range(len(tickets)):
-        tickets[i]=updated_object_from_txt(tickets[i])
+def update_updatedtime_tickets(liste_info):
+    session=Session()
+    for info in liste_info:
+        ticket=session.query(Ticket).filter_by(id=info[0]).first()
+        date=datetime.fromtimestamp(info[1]/1000,pytz.timezone(info[2]))
 
-    return tickets
+        ticket.last_time_updated=date
+        session.commit()
+
+    session.close()
+
+
+
+
 
 
 

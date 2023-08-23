@@ -10,14 +10,16 @@ class Ticket(Base):
 
     id =Column(Integer,primary_key=True)
     ticket_name=Column(String)
-
+    ticket_type=Column(String)
+    time_zone=Column(String)
     last_time_updated=Column(DateTime)
     hist_data=relationship('Hist_data',uselist=True,cascade='all, delete-orphan',lazy='dynamic')
-
+    
     def __init__(self,dic):
         self.ticket_name=dic['ticket_name']
         self.last_time_updated=dic['last_time_updated']
-
+        self.ticket_type=dic['ticket_type']
+        self.time_zone=dic['time_zone']
 
         
     def set_updated_time(self,datetime):
@@ -38,6 +40,8 @@ class Ticket(Base):
         self.last_time_updated=last_date
     def getname(self):
         return self.ticket_name 
+    def to_list(self):
+        return [self.id,self.ticket_name,self.last_time_updated,self.time_zone]
 
 
  

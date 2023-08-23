@@ -46,4 +46,3 @@ if __name__ =='__main__':
             second=datetime.now().second
             time.sleep(60-second)
         minutes=minutes+1
-

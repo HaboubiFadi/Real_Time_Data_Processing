@@ -1,6 +1,7 @@
 from sqlalchemy import Column,Table,Integer,String,DateTime,ForeignKey,FLOAT
 from sqlalchemy.orm import relationship
-
+import pytz
+from datetime import datetime
 from base import Base
 import pandas as pd
 
@@ -17,10 +18,8 @@ class Hist_data(Base):
     volume=Column(FLOAT)
     ticket_id=Column(Integer,ForeignKey('tickets.id'))
    
-    sma=Column(FLOAT)
-    cmv=Column(FLOAT)
-    rsi=Column(FLOAT)
-    def __init__(self,dic):
+    
+    def __init__(self,dic,ticket_id=None,timezone=None):
         if isinstance(dic,list)==True:
             self.Datetime=dic[0]
             self.open=dic[1]
@@ -41,12 +40,19 @@ class Hist_data(Base):
             self.high=dic['High']
             self.low=dic['Low']
             self.volume=dic['Volume']
-            self.sma=dic['SMA']
-            self.cmv=dic['CMV']
-            self.rsi=dic['RSI']
+            
         else:
             print('None')
             pass     
+        if ticket_id!=None:
+            date=datetime.fromtimestamp(dic['Datetime']/1000,pytz.timezone(timezone))
+            self.Datetime=date
+            self.open=dic['Open']
+            self.close=dic['Close']
+            self.high=dic['High']
+            self.low=dic['Low']
+            self.volume=dic['Volume']
+            self.ticket_id=ticket_id
 
     
 
