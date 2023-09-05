@@ -2,8 +2,8 @@ from sqlalchemy import Column,Table,Integer,String,DateTime
 from sqlalchemy.orm import relationship
 import pandas as pd
 from base import Base
-
-
+import pytz
+from datetime import datetime
 
 class Ticket(Base):
     __tablename__='tickets'
@@ -17,9 +17,14 @@ class Ticket(Base):
     
     def __init__(self,dic):
         self.ticket_name=dic['ticket_name']
-        self.last_time_updated=dic['last_time_updated']
         self.ticket_type=dic['ticket_type']
         self.time_zone=dic['time_zone']
+
+        date=datetime.fromtimestamp(dic['last_time_updated'],pytz.UTC)
+
+
+        self.last_time_updated=date
+
 
         
     def set_updated_time(self,datetime):

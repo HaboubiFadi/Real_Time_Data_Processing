@@ -1,0 +1,37 @@
+version: '3.5'
+networks:
+    kafka:
+      name: rmoff_kafka
+      external: True
+services:
+   
+
+  dataingest:
+    build: ./dataingestService
+    command: ["python","-u","news_init_script.py"] 
+    networks:
+      - kafka
+      
+    
+  dataprocess:
+    build: ./dataProcessingService
+    networks:
+      - kafka
+    environment: 
+      reception_news: ingest_news  
+      emission_news : process_news  
+    
+  
+      
+  datastorage:    
+    build: ./storageService
+    command: ["python","-u","news_init_script.py"] 
+    networks:
+      - kafka
+     
+       
+    environment : 
+        DB_HOST : postgres
+        DB_PORT: 5432  
+    
+

@@ -6,7 +6,6 @@ from base import Base
 
 class News_tickets(Base):
     __tablename__='news_tickets'
-    __table_args__ = {'extend_existing': True}
 
     id =Column(Integer,primary_key=True)
     ticket_name=Column(String)
@@ -45,4 +44,5 @@ class News_tickets(Base):
                 self.news.append(i)     
         else:
             self.hist_data.append(news_items)  
-    
+    def to_list(self):
+        return [self.id,self.ticket_name,self.last_time_updated]

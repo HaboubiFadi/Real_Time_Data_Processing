@@ -8,7 +8,7 @@ from news import News
 from Hist_data import Hist_data
 from tickets import Ticket
 from datetime import datetime
-from entites_APi.new_tickets import News_tickets
+from new_tickets import News_tickets
 
 import sys
 from base import Session
@@ -17,18 +17,114 @@ from Service import update_updatedtime_tickets
 sys.path.append(os.path.join(path,'database'))
 from postgres import insert_data
 
+from sqlalchemy import and_,or_
+
+def Serialization(DataFrame):
+    return DataFrame.to_json()
+
+def liste_hist_data_to_dataframe(liste_hist):
+    columns=['Datetime','Open','Close','High','Low','Volume']
+    dataframe=pd.DataFrame(columns=columns)
+    for hist_data in liste_hist:
+        dataframe.loc[len(dataframe)]=hist_data.to_list()
+
+    return dataframe 
 
 
 
 
 
 
-def get_ticket(key):
+def liste_news_to_dataframe(liste_news):
+    columns=['Source','Author','Title','Description','PublishedAt','Sentiment']
+    dataframe=pd.DataFrame(columns=columns)
+    for new in liste_news:
+        dataframe.loc[len(dataframe)]=new.to_list()
+
+    return dataframe 
+
+
+def  get_news_filtred(request):
+    ticket_id=get_news_ticket(request['query'],id=True)
+    session=Session()
+
+
+    if 'start_time' in request.keys() and 'end_time' in request.keys() :  
+        news=session.query(News).filter(and_(News.ticket_id==ticket_id,News.publishedAt()>request['start_time'],News.publishedAt()>request['end_time'])).first()
+        
+        
+        
+        session.close()
+        return liste_news_to_dataframe(news)
+    elif 'start_time' in request.keys():
+        news=session.query(News).filter(and_(News.ticket_id==ticket_id,News.publishedAt()>request['start_time']))
+        session.close()
+        return liste_news_to_dataframe(news)
+    elif 'end_time' in request.keys() :
+        news=session.query(News).filter(and_(News.ticket_id==ticket_id,News.publishedAt()>request['end_time']))
+        session.close()
+        return liste_news_to_dataframe(news)
+    else:
+        news=session.query(News).filter(News.ticket_id==ticket_id)
+        session.close()
+        return liste_news_to_dataframe(news)
+
+
+
+def get_historical_filtred(request):
+    ticket_id=get_ticket(request['query'],id=True)
+    session=Session()
+
+
+    if 'start_time' in request.keys() and 'end_time' in request.keys() :  
+        hist_data_liste=session.query(Hist_data).filter(and_(Hist_data.ticket_id==ticket_id,Hist_data.Datetime>request['start_time'],Hist_data.Datetime()>request['end_time']))
+        
+        
+        
+        session.close()
+        return liste_hist_data_to_dataframe(hist_data_liste)
+    elif 'start_time' in request.keys():
+        hist_data_liste=session.query(Hist_data).filter(and_(Hist_data.ticket_id==ticket_id,Hist_data.Datetime>request['start_time']))
+        session.close()
+        return liste_hist_data_to_dataframe(hist_data_liste)
+    elif 'end_time' in request.keys() :
+        hist_data_liste=session.query(Hist_data).filter(and_(Hist_data.ticket_id==ticket_id,Hist_data.Datetime>request['end_time']))
+        session.close()
+        return liste_hist_data_to_dataframe(hist_data_liste)
+    else:
+        hist_data_liste=session.query(Hist_data).filter(Hist_data.ticket_id==ticket_id)
+        session.close()
+        return liste_hist_data_to_dataframe(hist_data_liste)
+
+
+
+
+
+
+
+
+def get_ticket(key,id=False):
     session=Session()    
     tick=session.query(Ticket).filter(Ticket.ticket_name==key).first()
     session.close()
-    return tick
-
+    if id==False:
+        return tick
+    else:
+        if tick!=None:
+            return tick.id
+        else:
+            return -1
+def get_news_ticket(key,id=False):
+    session=Session()    
+    tick=session.query(News_tickets).filter(News_tickets.ticket_name==key).first()
+    session.close()
+    if id==False:
+        return tick
+    else:
+        if tick!=None:
+            return tick.id
+        else:
+            return -1
 
 
 
@@ -66,12 +162,12 @@ def Consumer_init(configuration_server):
 
 
 
-def data_frame_to_class_objects(object,dataFrame):
+def data_frame_to_class_objects(object,dataFrame,ticket_id=None):
     if isinstance(object,News):
         liste=[]
         print('news object')
         for i in range(len(dataFrame)):
-            liste.append(News(dataFrame.iloc[i]))
+            liste.append(News(dataFrame.iloc[i],ticket_id))
         return liste
     if isinstance(object,Hist_data):
         liste=[]
@@ -145,11 +241,12 @@ def Consume_data(dic,topic):
                 value = message.value()
                 value=Deserialization(value)
                 empty_object=Hist_data(None)
-                print('my name is key and i use clear for men ',key)
+                print(value['Datetime1'])
                 liste_price=data_frame_to_class_objects(empty_object,value)
                 fetch_key=fetch_init_key(key.decode('utf-8'))
+                print('im here ladies',key,value['Datetime'])
                 tick_info= {'ticket_name':fetch_key['ticket_name'],
-                            'last_time_updated':fetch_key['last_updated'],
+                            'last_time_updated':value['Datetime1'].max(),
                             'time_zone':fetch_key['timezone'],
                             'ticket_type':fetch_key['type']
                             }
@@ -164,7 +261,7 @@ def Consume_data(dic,topic):
                 value=Deserialization(value)
                 empty_object=News(None)
                 liste_news=data_frame_to_class_objects(empty_object,value)
-                tick_info= {'ticket_name':key.decode('utf-8'),'last_time_updated':datetime.now()}
+                tick_info= {'ticket_name':key.decode('utf-8'),'last_time_updated':value['publishedAt'].max()}
 
                 ticket_news=News_tickets(tick_info)
                 ticket_news.set_news(liste_news)
@@ -206,13 +303,22 @@ def extract_data_from_multiindex(multiindex,name):
         req=f"({name}, '{statue}')"
 
         dic[statue]= multiindex[req]
-    dic['Datetime']=multiindex["('', 'Datetime')"]
-    return pd.DataFrame(dic),dic['Datetime'].iloc[-1]   
+    statue=False
+    # get the Datetme column name in  the multiindex 
+    i=0
+    while (statue==False):
+        if 'Datetime1' in multiindex.columns[i]:
+            statue=True
+            datecolum=multiindex.columns[i]
+        i=i+1    
+    dic['Datetime1']=multiindex[datecolum]
+    return pd.DataFrame(dic),dic['Datetime1'].iloc[-1]   
 
 
 
 
-def multi_data_into_object(full_data,all_tickets):
+def multi_data_into_object(full_data,all_tickets,live):
+    print('sdqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',live)
     columns=list(fetch_column_name(full_data))
     ticket_updated=[]
     print('list of ticket_name',columns)
@@ -232,10 +338,15 @@ def multi_data_into_object(full_data,all_tickets):
         else:
             continue
         print('im here')    
+        
         dic,last_update=extract_data_from_multiindex(full_data,name) 
         print('put data into a dataframe to create a hist_obj object ')
-        for i in range(len(dic)):
-            liste_hist.append(Hist_data(dic.iloc[i],ticket_id,timezone))
+        if live != 'live':
+            for i in range(len(dic)):
+                liste_hist.append(Hist_data(dic.iloc[i],ticket_id,timezone))
+        else:
+            liste_hist.append(Hist_data(dic.iloc[-1],ticket_id,timezone))
+        print('hist_data lentgh fafafafaf',len(liste_hist))    
         ticket_updated.append((ticket_id,last_update,timezone))
 
 
@@ -251,7 +362,7 @@ def multi_data_into_object(full_data,all_tickets):
 
 
 
-def Consume_diag_data(consumer,topic,all_tickets):
+def Consume_auto_data(consumer,topic,all_tickets):
     print('im here in consumer auto data ')
     print('///////////////////////////////////////////////////////')
 
@@ -260,7 +371,6 @@ def Consume_diag_data(consumer,topic,all_tickets):
     while True:
         message=consumer.poll(1.0)
         if message is None:
-            print('no_data')
             continue
         if message.error():
             print(f"There might be a problem {message.error()}")
@@ -277,7 +387,8 @@ def Consume_diag_data(consumer,topic,all_tickets):
                 value = message.value()
                 value=Deserialization(value)
                 # database_update 
-                liste_hist_price,ticket_info=multi_data_into_object(full_data,all_tickets)
+                live=key.split(',')[-1]
+                liste_hist_price,ticket_info=multi_data_into_object(value,all_tickets,live=live)
                 insert_data(liste_hist_price)
                 update_updatedtime_tickets(ticket_info)      
             
@@ -290,6 +401,7 @@ def Consume_diag_data(consumer,topic,all_tickets):
                 if dataframe_constraction_loop==True:
                     value = message.value()
                     value=Deserialization(value)
+                    live=key.split(',')[-1]
                     # concat_functions :
                     statue=concat_part(full_data,value,expected_part,key)
                     full_data=statue[1]
@@ -301,16 +413,53 @@ def Consume_diag_data(consumer,topic,all_tickets):
                         dataframe_constraction_loop=False
                         # database_update
                         print('im at the database section')
-                        liste_hist_price,ticket_info=multi_data_into_object(full_data,all_tickets)
+                        liste_hist_price,ticket_info=multi_data_into_object(full_data,all_tickets,live)
                         insert_data(liste_hist_price)
                         update_updatedtime_tickets(ticket_info)
 
 
 
-                        
 
 
 
-                        
-                  
-    
+
+
+def Consume_news_data(consumer,topic,all_tickets):
+    print('im here in consumer news data ')
+    print('///////////////////////////////////////////////////////')
+    max_time_no_data=120
+    time_no_data=0
+    consumer.subscribe(topic)
+    dataframe_constraction_loop=False
+    while True:
+        message=consumer.poll(1.0)
+        if max_time_no_data<time_no_data:
+            break
+
+        if message is None:
+            time_no_data=time_no_data+1
+            continue
+        if message.error():
+            print(f"There might be a problem {message.error()}")
+
+        
+        else:
+            time_no_data=0    
+            print('data delivered successfully')
+
+            topic = message.topic()
+            key=message.key().decode('utf-8')
+            value = message.value()
+            value=Deserialization(value)
+            empty_object=News(None)
+            liste_news=data_frame_to_class_objects(empty_object,value,ticket_id=key)
+            print('here the problem',value['publishedAt'])
+            value=value.astype({'publishedAt': 'datetime64[ns, UTC]'})
+
+            ticket_info=[key,value['publishedAt'].max()]
+            print('my names is clear and im using clear for men',ticket_info)
+            update_updatedtime_tickets(ticket_info,'news')           
+            insert_data(liste_news) 
+            consumer.commit()
+            
+

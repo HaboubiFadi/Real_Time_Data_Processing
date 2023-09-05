@@ -13,7 +13,7 @@ topic_auto='auto_ingest'
 
             
 
-di_consume={'bootstrap.servers': 'broker:9092','group.id':'ingest_consumer','enable.auto.commit': False,
+di_consume={'bootstrap.servers': 'broker:9092','group.id':'ingest_consumer','enable.auto.commit': True,
         'auto.offset.reset': 'earliest'}
 di_producer={'bootstrap.servers': 'broker:9092'}
 dic_reel={'bootstrap.servers': 'broker:9092'}
@@ -36,6 +36,6 @@ if __name__=='__main__':
     get_tickets=diagnostic_script(producer)
     print(get_tickets)
     time.sleep(10)
-    print('im here now after initiate p/c and waitin for data')
-    Consume_diag_data(consume,[topic_auto],get_tickets)
+    print('Im here now after initiate p/c and waitin for data')
+    Consume_auto_data(consume,[topic_auto],get_tickets)
                   

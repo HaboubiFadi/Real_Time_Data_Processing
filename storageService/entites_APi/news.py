@@ -23,17 +23,28 @@ class News(Base):
 
 
    
-    def __init__(self,serie=None):
+    def __init__(self,serie=None,ticket_id=None):
         if isinstance(serie,type(None))==False:
-            self.source=serie['source']
-            self.author=serie['author']
-            self.title=serie['title']
-            self.description=serie['description']
-            self.publishedAt=serie['publishedAt']
-            self.content=serie['content']
-            self.sentiment=serie['sentiment']
-
+            if ticket_id==None:
+                self.source=serie['source']
+                self.author=serie['author']
+                self.title=serie['title']
+                self.description=serie['description']
+                self.publishedAt=serie['publishedAt']
+                self.content=serie['content']
+                self.sentiment=serie['sentiment']
+            else :
+                self.ticket_id=ticket_id
+                self.source=serie['source']
+                self.author=serie['author']
+                self.title=serie['title']
+                self.description=serie['description']
+                self.publishedAt=serie['publishedAt']
+                self.content=serie['content']
+                self.sentiment=serie['sentiment']
         else:
             print('None')
             pass
+    def to_list(self):
+        return [self.source,self.author,self.title,self.description,self.publishedAt,self.sentiment]    
         

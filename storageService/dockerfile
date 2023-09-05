@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requierment.txt
 
 COPY . /app/
 
-CMD ["python","init_script.py"]
+CMD ["python","-u","init_script.py"]

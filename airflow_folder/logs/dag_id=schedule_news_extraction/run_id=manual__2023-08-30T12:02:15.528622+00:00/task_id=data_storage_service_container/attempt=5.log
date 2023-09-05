@@ -1,0 +1,515 @@
+[2023-08-30T13:30:47.151+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T12:02:15.528622+00:00 [queued]>
+[2023-08-30T13:30:47.157+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T12:02:15.528622+00:00 [queued]>
+[2023-08-30T13:30:47.158+0100] {taskinstance.py:1361} INFO - Starting attempt 5 of 6
+[2023-08-30T13:30:47.170+0100] {taskinstance.py:1382} INFO - Executing <Task(DockerOperator): data_storage_service_container> on 2023-08-30 12:02:15.528622+00:00
+[2023-08-30T13:30:47.172+0100] {standard_task_runner.py:57} INFO - Started process 99287 to run task
+[2023-08-30T13:30:47.176+0100] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'schedule_news_extraction', 'data_storage_service_container', 'manual__2023-08-30T12:02:15.528622+00:00', '--job-id', '60', '--raw', '--subdir', '/home/haboubi/Desktop/final/airflow_folder/dags/news_schedule.py', '--cfg-path', '/tmp/tmpbrqamgqa']
+[2023-08-30T13:30:47.176+0100] {standard_task_runner.py:85} INFO - Job 60: Subtask data_storage_service_container
+[2023-08-30T13:30:47.209+0100] {task_command.py:415} INFO - Running <TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T12:02:15.528622+00:00 [running]> on host haboubi-VivoBook-15-ASUS-Laptop-X540UB
+[2023-08-30T13:30:47.269+0100] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='schedule_news_extraction' AIRFLOW_CTX_TASK_ID='data_storage_service_container' AIRFLOW_CTX_EXECUTION_DATE='2023-08-30T12:02:15.528622+00:00' AIRFLOW_CTX_TRY_NUMBER='5' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-08-30T12:02:15.528622+00:00'
+[2023-08-30T13:30:47.304+0100] {docker.py:333} INFO - Starting docker container from image final_datastorage:latest
+[2023-08-30T13:30:47.307+0100] {docker.py:341} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2023-08-30T13:31:14.601+0100] {docker.py:402} INFO - Consumer is successfully initiated
+[2023-08-30T13:31:14.602+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.623+0100] {docker.py:402} INFO - Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+[2023-08-30T13:31:14.623+0100] {docker.py:402} INFO - self._dbapi_connection = engine.raw_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+[2023-08-30T13:31:14.624+0100] {docker.py:402} INFO - return self.pool.connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+[2023-08-30T13:31:14.625+0100] {docker.py:402} INFO - return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+[2023-08-30T13:31:14.626+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.626+0100] {docker.py:402} INFO - fairy = _ConnectionRecord.checkout(pool)
+[2023-08-30T13:31:14.626+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+[2023-08-30T13:31:14.626+0100] {docker.py:402} INFO - rec = pool._do_get()
+[2023-08-30T13:31:14.626+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.627+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+[2023-08-30T13:31:14.627+0100] {docker.py:402} INFO - self._dec_overflow()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+    return self._create_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+[2023-08-30T13:31:14.627+0100] {docker.py:402} INFO - self.__connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+[2023-08-30T13:31:14.628+0100] {docker.py:402} INFO - pool.logger.debug("Error on connect(): %s", e)
+[2023-08-30T13:31:14.628+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.628+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+[2023-08-30T13:31:14.629+0100] {docker.py:402} INFO - raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+[2023-08-30T13:31:14.629+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.629+0100] {docker.py:402} INFO - return dialect.connect(*cargs, **cparams)
+[2023-08-30T13:31:14.629+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.630+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+[2023-08-30T13:31:14.630+0100] {docker.py:402} INFO - return self.loaded_dbapi.connect(*cargs, **cparams)
+[2023-08-30T13:31:14.630+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.630+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+[2023-08-30T13:31:14.631+0100] {docker.py:402} INFO - conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+[2023-08-30T13:31:14.631+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.631+0100] {docker.py:402} INFO - psycopg2
+[2023-08-30T13:31:14.632+0100] {docker.py:402} INFO - .
+[2023-08-30T13:31:14.632+0100] {docker.py:402} INFO - OperationalError
+[2023-08-30T13:31:14.632+0100] {docker.py:402} INFO - : could not translate host name "postgres" to address: Temporary failure in name resolution
+[2023-08-30T13:31:14.632+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.632+0100] {docker.py:402} INFO - The above exception was the direct cause of the following exception:
+[2023-08-30T13:31:14.633+0100] {docker.py:402} INFO - Traceback (most recent call last):
+  File "auto_news_script.py", line 35, in <module>
+[2023-08-30T13:31:14.633+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.633+0100] {docker.py:402} INFO - get_tickets_news=produce_database_diagnostic(producer,topic_dig)
+[2023-08-30T13:31:14.634+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.634+0100] {docker.py:402} INFO - File "auto_news_script.py", line 21, in produce_database_diagnostic
+[2023-08-30T13:31:14.634+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.634+0100] {docker.py:402} INFO - all_ticket=get_all_ticket_list(type='news')
+[2023-08-30T13:31:14.635+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.635+0100] {docker.py:402} INFO - File "/app/entites_APi/Service.py", line 53, in get_all_ticket_list
+[2023-08-30T13:31:14.635+0100] {docker.py:402} INFO - tickets=session.query(News_tickets).all()
+[2023-08-30T13:31:14.635+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.636+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2688, in all
+[2023-08-30T13:31:14.636+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.636+0100] {docker.py:402} INFO - return self._iter().all()  # type: ignore
+[2023-08-30T13:31:14.637+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.637+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+[2023-08-30T13:31:14.637+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.638+0100] {docker.py:402} INFO - result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+[2023-08-30T13:31:14.638+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.638+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2262, in execute
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - return self._execute_internal(
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2134, in _execute_internal
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - conn = self._connection_for_bind(bind)
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.639+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2001, in _connection_for_bind
+[2023-08-30T13:31:14.640+0100] {docker.py:402} INFO - return trans._connection_for_bind(engine, execution_options)
+[2023-08-30T13:31:14.640+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.640+0100] {docker.py:402} INFO - File "<string>", line 2, in _connection_for_bind
+[2023-08-30T13:31:14.640+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+[2023-08-30T13:31:14.640+0100] {docker.py:402} INFO - ret_value = fn(self, *arg, **kw)
+[2023-08-30T13:31:14.641+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.641+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1126, in _connection_for_bind
+[2023-08-30T13:31:14.641+0100] {docker.py:402} INFO - conn = bind.connect()
+[2023-08-30T13:31:14.641+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.642+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3264, in connect
+[2023-08-30T13:31:14.642+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.642+0100] {docker.py:402} INFO - return self._connection_cls(self)
+[2023-08-30T13:31:14.642+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.643+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+[2023-08-30T13:31:14.643+0100] {docker.py:402} INFO - Connection._handle_dbapi_exception_noconnection(
+[2023-08-30T13:31:14.643+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.643+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2426, in _handle_dbapi_exception_noconnection
+[2023-08-30T13:31:14.644+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.644+0100] {docker.py:402} INFO - raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+[2023-08-30T13:31:14.644+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.645+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+[2023-08-30T13:31:14.646+0100] {docker.py:402} INFO - self._dbapi_connection = engine.raw_connection()
+[2023-08-30T13:31:14.649+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.649+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+[2023-08-30T13:31:14.650+0100] {docker.py:402} INFO - return self.pool.connect()
+[2023-08-30T13:31:14.650+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.655+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+[2023-08-30T13:31:14.655+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.655+0100] {docker.py:402} INFO - return _ConnectionFairy._checkout(self)
+[2023-08-30T13:31:14.656+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.657+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+[2023-08-30T13:31:14.658+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.659+0100] {docker.py:402} INFO - fairy = _ConnectionRecord.checkout(pool)
+[2023-08-30T13:31:14.659+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.660+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+[2023-08-30T13:31:14.661+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.662+0100] {docker.py:402} INFO - rec = pool._do_get()
+[2023-08-30T13:31:14.663+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.664+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+[2023-08-30T13:31:14.664+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.664+0100] {docker.py:402} INFO - self._dec_overflow()
+[2023-08-30T13:31:14.665+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.665+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+[2023-08-30T13:31:14.668+0100] {docker.py:402} INFO - raise exc_value.with_traceback(exc_tb)
+[2023-08-30T13:31:14.668+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.669+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+[2023-08-30T13:31:14.670+0100] {docker.py:402} INFO - return self._create_connection()
+[2023-08-30T13:31:14.672+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.673+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+[2023-08-30T13:31:14.674+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.675+0100] {docker.py:402} INFO - return _ConnectionRecord(self)
+[2023-08-30T13:31:14.676+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.678+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+[2023-08-30T13:31:14.684+0100] {docker.py:402} INFO - self.__connect()
+[2023-08-30T13:31:14.685+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.689+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+[2023-08-30T13:31:14.689+0100] {docker.py:402} INFO - pool.logger.debug("Error on connect(): %s", e)
+[2023-08-30T13:31:14.690+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.690+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+[2023-08-30T13:31:14.690+0100] {docker.py:402} INFO - raise exc_value.with_traceback(exc_tb)
+[2023-08-30T13:31:14.690+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.690+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+[2023-08-30T13:31:14.691+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.691+0100] {docker.py:402} INFO - self.dbapi_connection = connection = pool._invoke_creator(self)
+[2023-08-30T13:31:14.691+0100] {docker.py:402} INFO - 
+[2023-08-30T13:31:14.691+0100] {docker.py:402} INFO - File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+[2023-08-30T13:31:14.691+0100] {docker.py:402} INFO - return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2023-08-30T13:31:14.692+0100] {docker.py:402} INFO - %6|1693398674.664|FAIL|rdkafka#producer-1| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 57ms in state UP)
+[2023-08-30T13:31:14.692+0100] {docker.py:402} INFO - %6|1693398674.668|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 63ms in state UP)
+[2023-08-30T13:31:14.692+0100] {docker.py:402} INFO - %6|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Disconnected (after 66ms in state UP)
+[2023-08-30T13:31:14.692+0100] {docker.py:402} INFO - %3|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT)
+[2023-08-30T13:31:14.733+0100] {docker.py:402} INFO - %3|1693398674.728|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT)
+[2023-08-30T13:31:15.130+0100] {taskinstance.py:1943} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 268, in _raise_for_status
+    response.raise_for_status()
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.41/containers/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 338, in _run_image
+    return self._run_image_with_mounts(self.mounts + [tmp_mount], add_tmp_variable=True)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 365, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/container.py", line 431, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/container.py", line 448, in create_container_from_config
+    return self._result(res, True)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 274, in _result
+    self._raise_for_status(response)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 270, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.41/containers/create: Bad Request ("invalid mount config for type "bind": bind source path does not exist: /tmp/airflowtmpnb1sbfvk")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 476, in execute
+    return self._run_image()
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 347, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 411, in _run_image_with_mounts
+    raise AirflowException(f"Docker container failed: {result!r} lines {joined_log_lines}")
+airflow.exceptions.AirflowException: Docker container failed: {'Error': None, 'StatusCode': 1} lines Consumer is successfully initiated
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+self._dbapi_connection = engine.raw_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+return self.pool.connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+
+fairy = _ConnectionRecord.checkout(pool)
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+rec = pool._do_get()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+self._dec_overflow()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+    return self._create_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+self.__connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+pool.logger.debug("Error on connect(): %s", e)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+
+return dialect.connect(*cargs, **cparams)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+return self.loaded_dbapi.connect(*cargs, **cparams)
+
+File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+
+psycopg2
+.
+OperationalError
+: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "auto_news_script.py", line 35, in <module>
+
+get_tickets_news=produce_database_diagnostic(producer,topic_dig)
+
+File "auto_news_script.py", line 21, in produce_database_diagnostic
+
+all_ticket=get_all_ticket_list(type='news')
+
+File "/app/entites_APi/Service.py", line 53, in get_all_ticket_list
+tickets=session.query(News_tickets).all()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2688, in all
+
+return self._iter().all()  # type: ignore
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+
+result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2262, in execute
+
+return self._execute_internal(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2134, in _execute_internal
+conn = self._connection_for_bind(bind)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2001, in _connection_for_bind
+return trans._connection_for_bind(engine, execution_options)
+
+File "<string>", line 2, in _connection_for_bind
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+ret_value = fn(self, *arg, **kw)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1126, in _connection_for_bind
+conn = bind.connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3264, in connect
+
+return self._connection_cls(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+Connection._handle_dbapi_exception_noconnection(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2426, in _handle_dbapi_exception_noconnection
+
+raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+self._dbapi_connection = engine.raw_connection()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+return self.pool.connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+
+return _ConnectionFairy._checkout(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+
+fairy = _ConnectionRecord.checkout(pool)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+
+rec = pool._do_get()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+
+self._dec_overflow()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+return self._create_connection()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+
+return _ConnectionRecord(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+self.__connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+pool.logger.debug("Error on connect(): %s", e)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+
+self.dbapi_connection = connection = pool._invoke_creator(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+%6|1693398674.664|FAIL|rdkafka#producer-1| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 57ms in state UP)
+%6|1693398674.668|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 63ms in state UP)
+%6|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Disconnected (after 66ms in state UP)
+%3|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT)
+%3|1693398674.728|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT)
+[2023-08-30T13:31:15.133+0100] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=schedule_news_extraction, task_id=data_storage_service_container, execution_date=20230830T120215, start_date=20230830T123047, end_date=20230830T123115
+[2023-08-30T13:31:15.142+0100] {standard_task_runner.py:104} ERROR - Failed to execute job 60 for task data_storage_service_container (Docker container failed: {'Error': None, 'StatusCode': 1} lines Consumer is successfully initiated
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+self._dbapi_connection = engine.raw_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+return self.pool.connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+return _ConnectionFairy._checkout(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+
+fairy = _ConnectionRecord.checkout(pool)
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+rec = pool._do_get()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+self._dec_overflow()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+    return self._create_connection()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+    return _ConnectionRecord(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+self.__connect()
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+pool.logger.debug("Error on connect(): %s", e)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+
+return dialect.connect(*cargs, **cparams)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+return self.loaded_dbapi.connect(*cargs, **cparams)
+
+File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+
+psycopg2
+.
+OperationalError
+: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "auto_news_script.py", line 35, in <module>
+
+get_tickets_news=produce_database_diagnostic(producer,topic_dig)
+
+File "auto_news_script.py", line 21, in produce_database_diagnostic
+
+all_ticket=get_all_ticket_list(type='news')
+
+File "/app/entites_APi/Service.py", line 53, in get_all_ticket_list
+tickets=session.query(News_tickets).all()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2688, in all
+
+return self._iter().all()  # type: ignore
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+
+result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2262, in execute
+
+return self._execute_internal(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2134, in _execute_internal
+conn = self._connection_for_bind(bind)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2001, in _connection_for_bind
+return trans._connection_for_bind(engine, execution_options)
+
+File "<string>", line 2, in _connection_for_bind
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+ret_value = fn(self, *arg, **kw)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1126, in _connection_for_bind
+conn = bind.connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3264, in connect
+
+return self._connection_cls(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 147, in __init__
+Connection._handle_dbapi_exception_noconnection(
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2426, in _handle_dbapi_exception_noconnection
+
+raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+self._dbapi_connection = engine.raw_connection()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3288, in raw_connection
+return self.pool.connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 452, in connect
+
+return _ConnectionFairy._checkout(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 1267, in _checkout
+
+fairy = _ConnectionRecord.checkout(pool)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 716, in checkout
+
+rec = pool._do_get()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 170, in _do_get
+
+self._dec_overflow()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 167, in _do_get
+return self._create_connection()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 393, in _create_connection
+
+return _ConnectionRecord(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 678, in __init__
+self.__connect()
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 903, in __connect
+pool.logger.debug("Error on connect(): %s", e)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 147, in __exit__
+raise exc_value.with_traceback(exc_tb)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 898, in __connect
+
+self.dbapi_connection = connection = pool._invoke_creator(self)
+
+File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 637, in connect
+return dialect.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 615, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/usr/local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+%6|1693398674.664|FAIL|rdkafka#producer-1| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 57ms in state UP)
+%6|1693398674.668|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Disconnected: verify that security.protocol is correctly configured, broker might require SASL authentication (after 63ms in state UP)
+%6|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Disconnected (after 66ms in state UP)
+%3|1693398674.677|FAIL|rdkafka#consumer-2| [thrd:GroupCoordinator]: GroupCoordinator: broker:9092: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT)
+%3|1693398674.728|FAIL|rdkafka#consumer-2| [thrd:broker:9092/bootstrap]: broker:9092/1: Connect to ipv4#172.18.0.2:9092 failed: Connection refused (after 0ms in state CONNECT); 99287)
+[2023-08-30T13:31:15.164+0100] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-08-30T13:31:15.183+0100] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

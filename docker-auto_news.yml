@@ -1,0 +1,37 @@
+version: '3.5'
+networks:
+    kafka:
+      name: rmoff_kafka
+      external: True
+services:
+  
+
+  dataingest:
+    build: /home/haboubi/Desktop/final/dataingestService
+    command: ["python","-u","auto_news_script.py"] 
+    networks:
+      - kafka
+    
+  dataprocess:
+    build: /home/haboubi/Desktop/final/dataProcessingService
+    
+    networks:
+      - kafka
+      
+    environment: 
+      reception_news: auto_ingest_news  
+      emission_news : auto_process_news
+  
+      
+  datastorage:    
+    build: /home/haboubi/Desktop/final/storageService
+    networks:
+      - kafka  
+    command: ["python","-u","auto_news_script.py"] 
+   
+    environment : 
+      DB_HOST : postgres
+      DB_PORT: 5432  
+    
+      
+

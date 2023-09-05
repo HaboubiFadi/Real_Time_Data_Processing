@@ -1,0 +1,16 @@
+[2023-08-30T14:14:22.585+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: schedule_news_extraction.data_process_service_container scheduled__2023-08-29T13:14:06.061905+00:00 [queued]>
+[2023-08-30T14:14:22.650+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: schedule_news_extraction.data_process_service_container scheduled__2023-08-29T13:14:06.061905+00:00 [queued]>
+[2023-08-30T14:14:22.651+0100] {taskinstance.py:1361} INFO - Starting attempt 1 of 6
+[2023-08-30T14:14:22.758+0100] {taskinstance.py:1382} INFO - Executing <Task(DockerOperator): data_process_service_container> on 2023-08-29 13:14:06.061905+00:00
+[2023-08-30T14:14:22.768+0100] {standard_task_runner.py:57} INFO - Started process 106480 to run task
+[2023-08-30T14:14:22.790+0100] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'schedule_news_extraction', 'data_process_service_container', 'scheduled__2023-08-29T13:14:06.061905+00:00', '--job-id', '6', '--raw', '--subdir', '/home/haboubi/Desktop/final/airflow_folder/dags/news_schedule.py', '--cfg-path', '/tmp/tmppfqvt558']
+[2023-08-30T14:14:22.793+0100] {standard_task_runner.py:85} INFO - Job 6: Subtask data_process_service_container
+[2023-08-30T14:14:23.020+0100] {task_command.py:415} INFO - Running <TaskInstance: schedule_news_extraction.data_process_service_container scheduled__2023-08-29T13:14:06.061905+00:00 [running]> on host haboubi-VivoBook-15-ASUS-Laptop-X540UB
+[2023-08-30T14:14:23.316+0100] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='schedule_news_extraction' AIRFLOW_CTX_TASK_ID='data_process_service_container' AIRFLOW_CTX_EXECUTION_DATE='2023-08-29T13:14:06.061905+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-08-29T13:14:06.061905+00:00'
+[2023-08-30T14:14:24.775+0100] {docker.py:333} INFO - Starting docker container from image final_dataprocess:latest
+[2023-08-30T14:14:24.845+0100] {docker.py:341} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2023-08-30T14:14:35.958+0100] {docker.py:402} INFO - Welcome to the processing service
+[2023-08-30T14:15:26.072+0100] {docker.py:402} INFO - There might be a problem KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: None: Broker: Unknown topic or partition"}
+[2023-08-30T14:17:08.588+0100] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=schedule_news_extraction, task_id=data_process_service_container, execution_date=20230829T131406, start_date=20230830T131422, end_date=20230830T131708
+[2023-08-30T14:17:08.657+0100] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-08-30T14:17:08.688+0100] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,242 @@
+[2023-08-30T14:21:18.198+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T13:14:12.022626+00:00 [queued]>
+[2023-08-30T14:21:18.206+0100] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T13:14:12.022626+00:00 [queued]>
+[2023-08-30T14:21:18.207+0100] {taskinstance.py:1361} INFO - Starting attempt 3 of 6
+[2023-08-30T14:21:18.246+0100] {taskinstance.py:1382} INFO - Executing <Task(DockerOperator): data_storage_service_container> on 2023-08-30 13:14:12.022626+00:00
+[2023-08-30T14:21:18.253+0100] {standard_task_runner.py:57} INFO - Started process 118707 to run task
+[2023-08-30T14:21:18.260+0100] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'schedule_news_extraction', 'data_storage_service_container', 'manual__2023-08-30T13:14:12.022626+00:00', '--job-id', '13', '--raw', '--subdir', '/home/haboubi/Desktop/final/airflow_folder/dags/news_schedule.py', '--cfg-path', '/tmp/tmp8sx1u0f4']
+[2023-08-30T14:21:18.261+0100] {standard_task_runner.py:85} INFO - Job 13: Subtask data_storage_service_container
+[2023-08-30T14:21:18.325+0100] {task_command.py:415} INFO - Running <TaskInstance: schedule_news_extraction.data_storage_service_container manual__2023-08-30T13:14:12.022626+00:00 [running]> on host haboubi-VivoBook-15-ASUS-Laptop-X540UB
+[2023-08-30T14:21:18.417+0100] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='schedule_news_extraction' AIRFLOW_CTX_TASK_ID='data_storage_service_container' AIRFLOW_CTX_EXECUTION_DATE='2023-08-30T13:14:12.022626+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-08-30T13:14:12.022626+00:00'
+[2023-08-30T14:21:18.449+0100] {docker.py:333} INFO - Starting docker container from image final_datastorage:latest
+[2023-08-30T14:21:18.453+0100] {docker.py:341} WARNING - Using remote engine or docker-in-docker and mounting temporary volume from host is not supported. Falling back to `mount_tmp_dir=False` mode. You can set `mount_tmp_dir` parameter to False to disable mounting and remove the warning
+[2023-08-30T14:21:46.547+0100] {docker.py:402} INFO - Consumer is successfully initiated
+[2023-08-30T14:21:46.548+0100] {docker.py:402} INFO - 
+[2023-08-30T14:21:46.609+0100] {docker.py:402} INFO - id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+[2023-08-30T14:21:47.567+0100] {docker.py:402} INFO - id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+[2023-08-30T14:21:57.575+0100] {docker.py:402} INFO - im here now after initiate p/c and waitin for data
+im here in consumer news data 
+///////////////////////////////////////////////////////
+[2023-08-30T14:22:00.858+0100] {docker.py:402} INFO - data delivered successfully
+[2023-08-30T14:22:00.873+0100] {docker.py:402} INFO - None
+news object
+[2023-08-30T14:22:00.887+0100] {docker.py:402} INFO - Traceback (most recent call last):
+  File "auto_news_script.py", line 39, in <module>
+[2023-08-30T14:22:00.888+0100] {docker.py:402} INFO - Consume_news_data(consume,[topic_process_news],get_tickets_news)
+  File "/app/entites_APi/Consumer.py", line 358, in Consume_news_data
+[2023-08-30T14:22:00.888+0100] {docker.py:402} INFO - ticket_info=[key,value['publishedAt'].max()]
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11646, in max
+[2023-08-30T14:22:00.892+0100] {docker.py:402} INFO - return NDFrame.max(self, axis, skipna, numeric_only, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11185, in max
+[2023-08-30T14:22:00.896+0100] {docker.py:402} INFO - return self._stat_function(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11158, in _stat_function
+[2023-08-30T14:22:00.899+0100] {docker.py:402} INFO - return self._reduce(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/series.py", line 4670, in _reduce
+[2023-08-30T14:22:00.900+0100] {docker.py:402} INFO - return op(delegate, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 158, in f
+[2023-08-30T14:22:00.900+0100] {docker.py:402} INFO - result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 421, in new_func
+[2023-08-30T14:22:00.901+0100] {docker.py:402} INFO - result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 1094, in reduction
+[2023-08-30T14:22:00.901+0100] {docker.py:402} INFO - result = getattr(values, meth)(axis)
+  File "/usr/local/lib/python3.8/site-packages/numpy/core/_methods.py", line 41, in _amax
+[2023-08-30T14:22:00.901+0100] {docker.py:402} INFO - return umr_maximum(a, axis, None, out, keepdims, initial, where)
+TypeError: '>=' not supported between instances of 'float' and 'str'
+[2023-08-30T14:22:01.725+0100] {taskinstance.py:1943} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 268, in _raise_for_status
+    response.raise_for_status()
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localhost/v1.41/containers/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 338, in _run_image
+    return self._run_image_with_mounts(self.mounts + [tmp_mount], add_tmp_variable=True)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 365, in _run_image_with_mounts
+    self.container = self.cli.create_container(
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/container.py", line 431, in create_container
+    return self.create_container_from_config(config, name, platform)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/container.py", line 448, in create_container_from_config
+    return self._result(res, True)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 274, in _result
+    self._raise_for_status(response)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/api/client.py", line 270, in _raise_for_status
+    raise create_api_error_from_http_exception(e) from e
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+    raise cls(e, response=response, explanation=explanation) from e
+docker.errors.APIError: 400 Client Error for http+docker://localhost/v1.41/containers/create: Bad Request ("invalid mount config for type "bind": bind source path does not exist: /tmp/airflowtmpa04o9wcw")
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 476, in execute
+    return self._run_image()
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 347, in _run_image
+    return self._run_image_with_mounts(self.mounts, add_tmp_variable=False)
+  File "/home/haboubi/Desktop/final/airflow_folder/py_env/lib/python3.10/site-packages/airflow/providers/docker/operators/docker.py", line 411, in _run_image_with_mounts
+    raise AirflowException(f"Docker container failed: {result!r} lines {joined_log_lines}")
+airflow.exceptions.AirflowException: Docker container failed: {'Error': None, 'StatusCode': 1} lines Consumer is successfully initiated
+
+id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+im here now after initiate p/c and waitin for data
+im here in consumer news data 
+///////////////////////////////////////////////////////
+data delivered successfully
+None
+news object
+Traceback (most recent call last):
+  File "auto_news_script.py", line 39, in <module>
+Consume_news_data(consume,[topic_process_news],get_tickets_news)
+  File "/app/entites_APi/Consumer.py", line 358, in Consume_news_data
+ticket_info=[key,value['publishedAt'].max()]
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11646, in max
+return NDFrame.max(self, axis, skipna, numeric_only, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11185, in max
+return self._stat_function(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11158, in _stat_function
+return self._reduce(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/series.py", line 4670, in _reduce
+return op(delegate, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 158, in f
+result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 421, in new_func
+result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 1094, in reduction
+result = getattr(values, meth)(axis)
+  File "/usr/local/lib/python3.8/site-packages/numpy/core/_methods.py", line 41, in _amax
+return umr_maximum(a, axis, None, out, keepdims, initial, where)
+TypeError: '>=' not supported between instances of 'float' and 'str'
+[2023-08-30T14:22:01.737+0100] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=schedule_news_extraction, task_id=data_storage_service_container, execution_date=20230830T131412, start_date=20230830T132118, end_date=20230830T132201
+[2023-08-30T14:22:01.772+0100] {standard_task_runner.py:104} ERROR - Failed to execute job 13 for task data_storage_service_container (Docker container failed: {'Error': None, 'StatusCode': 1} lines Consumer is successfully initiated
+
+id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+id    name            Datetime
+0    2   apple 2023-08-28 19:48:21
+1    3    gold 2023-08-28 19:48:03
+2    4  nasdaq 2023-08-28 19:48:03
+3    5  amazon 2023-08-28 19:45:48
+4    6     amd 2023-08-28 18:45:00
+5    7   forex 2023-08-28 14:49:43
+6    8  Stocks 2023-08-28 19:47:00
+7    9  google 2023-08-28 19:48:06
+8   10   apple 2023-08-28 19:48:21
+9   11    gold 2023-08-28 19:48:03
+10  12  nasdaq 2023-08-28 19:48:03
+11  13  amazon 2023-08-28 19:45:48
+12  14     amd 2023-08-28 18:45:00
+13  15   forex 2023-08-28 14:49:43
+14  16  Stocks 2023-08-28 19:47:00
+15   1  google 2023-08-29 13:14:59
+im here now after initiate p/c and waitin for data
+im here in consumer news data 
+///////////////////////////////////////////////////////
+data delivered successfully
+None
+news object
+Traceback (most recent call last):
+  File "auto_news_script.py", line 39, in <module>
+Consume_news_data(consume,[topic_process_news],get_tickets_news)
+  File "/app/entites_APi/Consumer.py", line 358, in Consume_news_data
+ticket_info=[key,value['publishedAt'].max()]
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11646, in max
+return NDFrame.max(self, axis, skipna, numeric_only, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11185, in max
+return self._stat_function(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/generic.py", line 11158, in _stat_function
+return self._reduce(
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/series.py", line 4670, in _reduce
+return op(delegate, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 158, in f
+result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 421, in new_func
+result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/pandas/core/nanops.py", line 1094, in reduction
+result = getattr(values, meth)(axis)
+  File "/usr/local/lib/python3.8/site-packages/numpy/core/_methods.py", line 41, in _amax
+return umr_maximum(a, axis, None, out, keepdims, initial, where)
+TypeError: '>=' not supported between instances of 'float' and 'str'; 118707)
+[2023-08-30T14:22:01.799+0100] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-08-30T14:22:01.825+0100] {taskinstance.py:2784} INFO - 0 downstream tasks scheduled from follow-on schedule check

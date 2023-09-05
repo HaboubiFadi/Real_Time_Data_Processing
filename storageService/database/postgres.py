@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 import os 
 import numpy as np
 from psycopg2.extensions import register_adapter, AsIs
+
 register_adapter(np.int64, AsIs)
 
 
@@ -68,3 +69,10 @@ def delete_data(data,database='postgres'):
     session=Session()
     session.delete(data)
     session.close()
+
+
+
+
+
+
+

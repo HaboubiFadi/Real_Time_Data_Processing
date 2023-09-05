@@ -33,8 +33,8 @@ class Hist_data(Base):
         
         
         if isinstance(dic,type(None))==False:
-
-            self.Datetime=dic['Datetime']
+            date=datetime.fromtimestamp(dic['Datetime1'],pytz.UTC)
+            self.Datetime=date
             self.open=dic['Open']
             self.close=dic['Close']
             self.high=dic['High']
@@ -45,7 +45,8 @@ class Hist_data(Base):
             print('None')
             pass     
         if ticket_id!=None:
-            date=datetime.fromtimestamp(dic['Datetime']/1000,pytz.timezone(timezone))
+            date=datetime.fromtimestamp(dic['Datetime1'],pytz.UTC)
+
             self.Datetime=date
             self.open=dic['Open']
             self.close=dic['Close']
@@ -59,4 +60,6 @@ class Hist_data(Base):
         
     def get_date(self):
         return self.Datetime
-    
+    def to_list(self):
+        return [self.Datetime,self.open,self.close,self.high,self.low,self.volume]    
+        

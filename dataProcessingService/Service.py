@@ -81,11 +81,26 @@ def RSI(DataFrame,periode=14):
 
 
 
-def Processing_data(DataFrame):
+def Processing_data(DataFrame,indication_choice,periode):
+    liste_indication=indication_choice.lower().split(' ')
+    print('processing the indication objectifs',liste_indication)
+    if 'sma' in liste_indication:
+        print('processing sma')
+        DataFrame=Simple_Moving_average(DataFrame,periode=periode)
+    if 'cma' in liste_indication:
+        print('processing cma')
+   
+        DataFrame=Cumulative_Moving_Average(DataFrame)
+    if 'rsi' in liste_indication:
+        print('processing rsi')
 
-    DataFrame=Simple_Moving_average(DataFrame)
-    DataFrame=Cumulative_Moving_Average(DataFrame)
-    DataFrame=RSI(DataFrame)     
+        DataFrame=RSI(DataFrame,periode=periode)    
+    if  'ema' in liste_indication:
+        print('processing ema')
+    
+        DataFrame=Exponential_Moving_Average(DataFrame,periode=periode)
+    
+    
     DataFrame = DataFrame.fillna(0)
 
     return DataFrame

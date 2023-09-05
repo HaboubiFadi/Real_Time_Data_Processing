@@ -1,0 +1,37 @@
+version: '3.5'
+networks:
+    kafka:
+      name: rmoff_kafka
+      external: True
+services:
+   
+
+
+      
+  dataprocess:
+    build: ./dataProcessingService
+    
+    networks:
+      - kafka
+      
+    environment: 
+      reception_price : reception_process  
+      emission_price  : reception_api  
+
+    
+  
+      
+  datastorage:    
+    build: ./storageService
+    command: ["python","-u","api_script.py"] 
+    networks:
+      - kafka
+    
+      
+     
+       
+    environment : 
+      reception_storage_from_api : emission_api  
+      emission_storage_to_api : reception_api   
+      emission_storage_to_process : reception_process
+    

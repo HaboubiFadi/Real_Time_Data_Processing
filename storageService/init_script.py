@@ -3,7 +3,8 @@ from entites_APi.Consumer import Consume_data
 from database.postgres import insert_data,initiate_database_yf
 from datetime import datetime
 # define variables
-dic={'bootstrap.servers': 'broker:9092','group.id':'storage_consumer'}
+dic={'bootstrap.servers': 'broker:9092','group.id':'storage_consumer','enable.auto.commit': True,
+        'auto.offset.reset': 'earliest'}
 
 topic_price_consume= 'ingest_price'
 topic_news_consume='process_news'

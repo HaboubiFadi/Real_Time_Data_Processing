@@ -1,8 +1,8 @@
 from base import  Base ,engine,Session
 from Hist_data import Hist_data
 from tickets import Ticket
-from news import News
 from new_tickets import News_tickets
+from news import News
 from confluent_kafka import Producer
 import pandas as pd
 import os
@@ -40,14 +40,23 @@ def get_ticket(key):
     tick=session.query(Ticket).filter(Ticket.ticket_name==key).first()
     session.close()
     return tick
-def get_all_ticket_list():
-    session=Session()    
-    tickets=session.query(Ticket).all()
-    session.close()
-    dataframe=pd.DataFrame([],columns=['id','name','Datetime','timezone'])
-    for ticket in tickets:
-        dataframe.loc[len(dataframe)]=ticket.to_list()
-    return dataframe  
+def get_all_ticket_list(type='price'):
+    session=Session() 
+    if type=='price':
+        tickets=session.query(Ticket).all()
+        session.close()
+        dataframe=pd.DataFrame([],columns=['id','name','Datetime','timezone'])
+        for ticket in tickets:
+            dataframe.loc[len(dataframe)]=ticket.to_list()
+        return dataframe  
+    elif type=='news':
+        tickets=session.query(News_tickets).all()
+        session.close()
+        dataframe=pd.DataFrame([],columns=['id','name','Datetime'])
+        for ticket in tickets:
+            dataframe.loc[len(dataframe)]=ticket.to_list()
+        return dataframe  
+
 
 def Serialization(DataFrame):
     return DataFrame.to_json()
@@ -92,14 +101,27 @@ def updated_object_from_txt(ticket):
     return ticket
 # update tickets table using liste of (id,timeupdate)
 
-def update_updatedtime_tickets(liste_info):
+def update_updatedtime_tickets(liste_info,type='price'):
     session=Session()
-    for info in liste_info:
-        ticket=session.query(Ticket).filter_by(id=info[0]).first()
-        date=datetime.fromtimestamp(info[1]/1000,pytz.timezone(info[2]))
+    if type=='price':
+        for info in liste_info:
+            ticket=session.query(Ticket).filter_by(id=info[0]).first()
+            print('ticket.info')
+            print(ticket.getname(),ticket.ticket_type)
+            date=datetime.fromtimestamp(info[1],pytz.UTC)
+            
 
-        ticket.last_time_updated=date
+            ticket.last_time_updated=date
         session.commit()
+    elif type=='news':
+        print('fadfadoud:',liste_info)
+        ticket_news=session.query(News_tickets).filter_by(id=liste_info[0]).first()
+        print('update news_tickets:ticket_news.getname()')
+        ticket_news.last_time_updated=liste_info[1]
+        session.commit()
+
+
+
 
     session.close()
 
