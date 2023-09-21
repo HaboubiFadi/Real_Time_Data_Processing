@@ -14,25 +14,36 @@ API Endpoint Service: Exposes endpoints for clients to query and retrieve specif
 # Technologies Used
 
 Programming Languages: Python (main language), SQL
+
 Microservices Architecture: Docker, Docker Compose
+
 Workflow Orchestration: Apache Airflow
+
 Data Storage: PostgreSQL
+
 Data Processing and Analysis: Pandas, Scikit-Learn
+
 Sentiment Analysis: NLP tools, Sentiment analysis libraries
+
 Version Control: Git
+
 Setup and Usage
+
 To set up and run the financial data pipeline, follow these steps:
 
-# Clone this repository.
+Clone this repository.
+
 Install Docker and Docker Compose.
+
 Run docker-compose up to start the services.
+
 Detailed setup instructions and usage guidelines can be found in the respective service directories.
 
 # Directory Structure
-/data_ingestion: Contains the data ingestion service code.
-/data_processing: Contains the data processing service code.
-/data_storage: Contains the data storage service code.
-/api_endpoint: Contains the API endpoint service code.
+**gras** /data_ingestion: Contains the data ingestion service code.
+**gras**/data_processing: Contains the data processing service code.
+**gras**/data_storage: Contains the data storage service code.
+**gras**/api_endpoint: Contains the API endpoint service code.
 Contributing
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
