@@ -40,7 +40,8 @@ Run docker-compose up to start the services.
 Detailed setup instructions and usage guidelines can be found in the respective service directories.
 
 # Directory Structure
-**gras** /data_ingestion: Contains the data ingestion service code.
+
+**gras**/data_ingestion: Contains the data ingestion service code.
 **gras**/data_processing: Contains the data processing service code.
 **gras**/data_storage: Contains the data storage service code.
 **gras**/api_endpoint: Contains the API endpoint service code.
